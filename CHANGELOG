@@ -9,31 +9,161 @@ Changelog
 Codac releases
 ==============
 
-Unreleased yet (in development)
-===============================
+.. Unreleased yet (in development)
+.. ===============================
+.. 
+.. This list corresponds to ongoing developments.
+.. 
+.. Features added
+.. --------------
+.. 
+.. Changes
+.. -------
+.. 
+.. Dependencies
+.. ------------
+.. 
+.. Bugs fixed
+.. ----------
+.. 
+.. Deprecated
+.. ----------
+.. 
+.. Documentation
+.. -------------
+.. 
+.. Python binding
+.. --------------
 
-This list corresponds to ongoing developments.
 
-Features added
+
+-----------------------------------------------------------------
+
+Codac release 0.1.10 (released `Jan 31, 2022 <https://github.com/codac-team/codac/releases/tag/v0.1.10>`_)
+==========================================================================================================
+
+`Commits since previous release 0.1.9 <https://github.com/codac-team/codac/compare/v0.1.9...v0.1.10>`_
+
+
+Python binding
 --------------
 
-Changes
--------
+* :commit:`76e0f8c8e9dae8748ce570e378773e5839e7424b`: completing missing math functions on tubes/traj
 
-Dependencies
-------------
+
+-----------------------------------------------------------------
+
+Codac release 0.1.9 (released `Jan 28, 2022 <https://github.com/codac-team/codac/releases/tag/v0.1.9>`_)
+========================================================================================================
+
+`Commits since previous release 0.1.8 <https://github.com/codac-team/codac/compare/v0.1.8...v0.1.9>`_
+
 
 Bugs fixed
 ----------
 
-Deprecated
-----------
-
-Documentation
--------------
+* :commit:`40c1d3e2d9cbd6bc1ba834f37ac06c18dad1dfe9`: corrected bug in ``Trajectory::diff()``
 
 Python binding
 --------------
+
+* :commit:`f43de8e75d91399fe8d642d70307986e9f09841c`: added binding for ``CtcNewton`` from IBEX
+* :commit:`c91d672d43ea573cb8522af47493391b01a0a110`: corrected bug in Python binding of ``Tube::invert()`` (subsets) methods
+
+
+-----------------------------------------------------------------
+
+Codac release 0.1.8 (released `Jan 15, 2022 <https://github.com/codac-team/codac/releases/tag/v0.1.8>`_)
+========================================================================================================
+
+`Commits since previous release 0.1.7 <https://github.com/codac-team/codac/compare/v0.1.7...v0.1.8>`_
+
+
+Bugs fixed
+----------
+
+* :commit:`a134aec462489db2d892cb6ee5d31eafe5ba73bd`: corrected pessimism in ``CtcEval`` on :math:`[t]\times[z]`
+* :commit:`f242159a160be266273030432e3c8b29054f9e3d`: solving bug when ``IntervalVectorVar`` connected by components only 
+
+
+-----------------------------------------------------------------
+
+Codac release 0.1.7 (released `Nov 4, 2021 <https://github.com/codac-team/codac/releases/tag/v0.1.7>`_)
+=======================================================================================================
+
+`Commits since previous release 0.1.6 <https://github.com/codac-team/codac/compare/v0.1.6...v0.1.7>`_
+
+Features added
+--------------
+
+* :commit:`ff42f1c88510c2d503440f754c311923f65ad3e2`: in CN, allowing interm variables to be reset
+* :commit:`c0477301e0596d4c2df8e949885b034c352bb897`: introducing *CN variables*: ``IntervalVar`` and ``IntervalVectorVar``
+* :commit:`edd84d9154abe1568220059685fe8a5d915c4d4a`: added an example of how to build a paving from a CN
+* :commit:`480b74b03ac68ccb28a880932e4ce142416f3df4`: ``CtcStatic`` can now be used in CN for ``Tube`` and ``TubeVector`` objects
+
+Changes
+-------
+
+* :commit:`0bc617a4be6c4313cdf66d1aa18c7efe4ab3f203`: in CN, only contracting contractors are triggered
+* :commit:`ff42f1c88510c2d503440f754c311923f65ad3e2`: the method ``create_dom`` is deprecated, use  ``create_interm_var`` instead
+* :commit:`cb34255db712423755274fb77afc7c33059d1c9a`: updated ``diff`` method
+* :commit:`0e87a9cc7871c7bf469d2648ecaed2956c64f7d9`: minor optimization in ``CtcDeriv``
+
+Bugs fixed
+----------
+
+* :commit:`2511f25d6bc062fcf10537dac779a38f0e06e026`: corrected bug in ``make_continuous()``
+* :commit:`9b3c33d728c59d571ff9b262f8b8eb183b25b132`: corrected bug when empty subdomain
+
+Python binding
+--------------
+
+* :commit:`08e670b5b33f055ba550576d3914215d0a53c4ba`: Python binding of CN variables
+* :commit:`5c64d19e9f38c286e253c704cac06e377801cda8`: Python binding of ``CtcStatic``
+
+
+-----------------------------------------------------------------
+
+Codac release 0.1.6 (released `Aug 25, 2021 <https://github.com/codac-team/codac/releases/tag/v0.1.6>`_)
+========================================================================================================
+
+`Commits since previous release 0.1.5 <https://github.com/codac-team/codac/compare/v0.1.5...v0.1.6>`_
+
+Features added
+--------------
+
+* :commit:`4f273d976005244344081d2feff81653095f5cfd`: towards generation of ``.deb`` and ``.nupkg packages``
+
+Bugs fixed
+----------
+
+* :commit:`5cf92232da71aa4bf8e329ac2ceb99bd46969dcf`: corrected recent bug in ``CtcChain``
+* :commit:`b4c5a2c35f43c30c9e63918b4b1e917bb955fad3`: corrected recent bug in ``CtcEval``
+
+
+-----------------------------------------------------------------
+
+Codac release 0.1.5 (released `Aug 18, 2021 <https://github.com/codac-team/codac/releases/tag/v0.1.5>`_)
+========================================================================================================
+
+`Commits since previous release 0.1.4 <https://github.com/codac-team/codac/compare/v0.1.4...v0.1.5>`_
+
+Features added
+--------------
+
+* :commit:`b0b627a184c59c788318b25c84eb1c0783cd15c9`: added *Brunovsky* example
+* :commit:`6a1625927bae77a2682084c71138ba8cf67a8048`: first attempt of sub-CN
+* :commit:`f6fbe30d082656a37d049e4f09a8dfea0e5bc4a7`: vehicle displayed on demand on trajectories
+
+Changes
+-------
+
+* :commit:`3ed609083fb2b0c2a2f22ceeb79348d373a2279b`: improved ``CtcDelay`` since new tube definition
+
+Bugs fixed
+----------
+
+* :commit:`22106ee3a4a25b55113a6bba014d6de84b6ce0b4`: eval of ``TubeVector`` objects
 
 
 -----------------------------------------------------------------
@@ -100,7 +230,7 @@ Codac release 0.1.1 (released `Feb 16, 2021 <https://github.com/codac-team/codac
 Changes
 -------
 
-* :commit:`ed3ff69b60ce0f936f5a94ac4ddb9d796c5186e1`: improved TubeTreeSynthesis computations
+* :commit:`ed3ff69b60ce0f936f5a94ac4ddb9d796c5186e1`: improved ``TubeTreeSynthesis`` computations
 * :commit:`630a98111b5a2e5fe64785593451840df1631e16`: changing tube definition: unbounded outside tdomain :math:`[t_0,t_f]`
 * :commit:`bb3d64cb42fe530835ac627bd0f916299bc565f6`: updated the interface of loop detections/proofs
 

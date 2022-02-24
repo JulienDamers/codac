@@ -14,9 +14,12 @@
 #include <pybind11/stl.h>
 #include <pybind11/operators.h>
 #include <pybind11/functional.h>
+#include <pybind11/numpy.h>
+#include <unordered_map>
 #include "pyIbex_type_caster.h"
 
 #include "codac_ContractorNetwork.h"
+#include "codac_Variable.h"
 // Generated file from Doxygen XML (doxygen2docstring.py):
 #include "codac_py_ContractorNetwork_docs.h"
 
@@ -41,7 +44,12 @@ codac::Domain pyobject_to_domain(py::object object)
   }
   else if(py::isinstance<Interval>(object))
   {
-    Interval &itv  = object.cast<Interval&>();
+    Interval &itv = object.cast<Interval&>();
+    return codac::Domain(itv);
+  }
+  else if(py::isinstance<IntervalVar>(object))
+  {
+    IntervalVar &itv = object.cast<IntervalVar&>();
     return codac::Domain(itv);
   }
   else if(py::isinstance<py::list>(object))
@@ -52,27 +60,48 @@ codac::Domain pyobject_to_domain(py::object object)
   }
   else if(py::isinstance<Vector>(object)) // todo: this seems to be never used
   {
-    Vector itv  = object.cast<Vector>();
+    Vector itv = object.cast<Vector>();
     return codac::Domain(itv);
   }
   else if(py::isinstance<IntervalVector>(object))
   {
-    IntervalVector &itv  = object.cast<IntervalVector&>();
+    IntervalVector &itv = object.cast<IntervalVector&>();
+    return codac::Domain(itv);
+  }
+  else if(py::isinstance<IntervalVectorVar>(object))
+  {
+    IntervalVectorVar &itv = object.cast<IntervalVectorVar&>();
     return codac::Domain(itv);
   }
   else if(py::isinstance<Tube>(object))
   {
-    Tube &itv  = object.cast<Tube&>();
+    Tube &itv = object.cast<Tube&>();
     return codac::Domain(itv);
   }
   else if(py::isinstance<TubeVector>(object))
   {
-    TubeVector &itv  = object.cast<TubeVector&>();
+    TubeVector &itv = object.cast<TubeVector&>();
+    return codac::Domain(itv);
+  }
+  else if(py::isinstance<float>(object))
+  {
+    const double itv = object.cast<double>();
+    return codac::Domain(itv);
+  }
+  else if(py::isinstance<double>(object))
+  {
+    const double itv = object.cast<double>();
     return codac::Domain(itv);
   }
   else
   {
-    throw invalid_argument("unable to convert the py::object into a valid codac::Domain");
+    try {
+      const double itv = object.cast<double>();
+      return codac::Domain(itv);
+    }
+    catch(py::cast_error const&) {
+      throw invalid_argument("unable to convert the py::object into a valid codac::Domain");
+    }
   }
 }
 
@@ -85,6 +114,19 @@ vector<codac::Domain> pylist_to_vectordomains(py::list lst)
 
   for(size_t i = 0 ; i < lst.size() ; i++)
     domains.push_back(pyobject_to_domain(lst[i]));
+
+  return domains;
+}
+
+unordered_map<codac::Domain,codac::Domain> pydict_to_unorderedmapdomains(py::dict dct)
+{
+  unordered_map<codac::Domain,codac::Domain> domains;
+
+  if(dct.size() < 1)
+    throw invalid_argument("Size of the input dict is 0");
+
+  for(auto e : dct)
+    domains[pyobject_to_domain(e.first.cast<py::object>())] = pyobject_to_domain(e.second.cast<py::object>());
 
   return domains;
 }
@@ -114,22 +156,46 @@ void export_ContractorNetwork(py::module& m)
       CONTRACTORNETWORK_INTERVAL_CREATE_DOM_INTERVAL,
       "i"_a,
       py::return_value_policy::reference_internal,
-      py::keep_alive<1,0>())
+      py::keep_alive<1,0>()) // deprecated!
 
     .def("create_dom", (IntervalVector& (ContractorNetwork::*)(const IntervalVector&))&ContractorNetwork::create_dom,
       CONTRACTORNETWORK_INTERVALVECTOR_CREATE_DOM_INTERVALVECTOR,
       "iv"_a,
       py::return_value_policy::reference_internal,
-      py::keep_alive<1,0>())
+      py::keep_alive<1,0>()) // deprecated!
 
     .def("create_dom", (Tube& (ContractorNetwork::*)(const Tube&))&ContractorNetwork::create_dom,
       CONTRACTORNETWORK_TUBE_CREATE_DOM_TUBE,
       "t"_a,
       py::return_value_policy::reference_internal,
-      py::keep_alive<1,0>())
+      py::keep_alive<1,0>()) // deprecated!
 
     .def("create_dom", (TubeVector& (ContractorNetwork::*)(const TubeVector&))&ContractorNetwork::create_dom,
       CONTRACTORNETWORK_TUBEVECTOR_CREATE_DOM_TUBEVECTOR,
+      "tv"_a,
+      py::return_value_policy::reference_internal,
+      py::keep_alive<1,0>()) // deprecated!
+
+    .def("create_interm_var", (Interval& (ContractorNetwork::*)(const Interval&))&ContractorNetwork::create_interm_var,
+      CONTRACTORNETWORK_INTERVAL_CREATE_INTERM_VAR_INTERVAL,
+      "i"_a,
+      py::return_value_policy::reference_internal,
+      py::keep_alive<1,0>())
+
+    .def("create_interm_var", (IntervalVector& (ContractorNetwork::*)(const IntervalVector&))&ContractorNetwork::create_interm_var,
+      CONTRACTORNETWORK_INTERVALVECTOR_CREATE_INTERM_VAR_INTERVALVECTOR,
+      "iv"_a,
+      py::return_value_policy::reference_internal,
+      py::keep_alive<1,0>())
+
+    .def("create_interm_var", (Tube& (ContractorNetwork::*)(const Tube&))&ContractorNetwork::create_interm_var,
+      CONTRACTORNETWORK_TUBE_CREATE_INTERM_VAR_TUBE,
+      "t"_a,
+      py::return_value_policy::reference_internal,
+      py::keep_alive<1,0>())
+
+    .def("create_interm_var", (TubeVector& (ContractorNetwork::*)(const TubeVector&))&ContractorNetwork::create_interm_var,
+      CONTRACTORNETWORK_TUBEVECTOR_CREATE_INTERM_VAR_TUBEVECTOR,
       "tv"_a,
       py::return_value_policy::reference_internal,
       py::keep_alive<1,0>())
@@ -170,11 +236,18 @@ void export_ContractorNetwork(py::module& m)
       CONTRACTORNETWORK_VOID_ADD_DATA_TUBEVECTOR_DOUBLE_INTERVALVECTOR,
       "x"_a, "t"_a, "y"_a)
 
-  // Contraction process  
+  // Contraction process
 
-    .def("contract", &ContractorNetwork::contract,
+    .def("contract", (double (ContractorNetwork::*)(bool))&ContractorNetwork::contract,
       CONTRACTORNETWORK_DOUBLE_CONTRACT_BOOL,
       "verbose"_a=false)
+
+    .def("contract", [](ContractorNetwork& cn, py::dict var_dom, bool verbose)
+      {
+        cn.contract(pydict_to_unorderedmapdomains(var_dom), verbose);
+      },
+      CONTRACTORNETWORK_DOUBLE_CONTRACT_UNORDEREDMAPDOMAINDOMAIN_BOOL,
+      "var_dom"_a, "verbose"_a=false)
 
     .def("contract_during", &ContractorNetwork::contract_during,
       CONTRACTORNETWORK_DOUBLE_CONTRACT_DURING_DOUBLE_BOOL,
@@ -186,6 +259,9 @@ void export_ContractorNetwork(py::module& m)
 
     .def("trigger_all_contractors", &ContractorNetwork::trigger_all_contractors,
       CONTRACTORNETWORK_VOID_TRIGGER_ALL_CONTRACTORS)
+
+    .def("reset_interm_vars", &ContractorNetwork::reset_interm_vars,
+      CONTRACTORNETWORK_VOID_RESET_INTERM_VARS)
 
     .def("nb_ctc_in_stack", &ContractorNetwork::nb_ctc_in_stack,
       CONTRACTORNETWORK_INT_NB_CTC_IN_STACK)

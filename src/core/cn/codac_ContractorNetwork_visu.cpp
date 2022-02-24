@@ -25,8 +25,12 @@ namespace codac
 
     void ContractorNetwork::set_name(Domain dom, const string& name)
     {
-      Domain *dom_ptr = add_dom(dom);
-      dom_ptr->set_name(name);
+      // DomainHashcode hash(dom);
+      // if(m_map_domains.find(hash) == m_map_domains.end())
+      //   throw Exception(__func__, "domain cannot be found in CN");
+      //   
+      // m_map_domains[hash]->set_name(name);
+      add_dom(dom)->set_name(name);
     }
     
     void ContractorNetwork::set_name(Ctc& ctc, const string& name)
@@ -37,7 +41,7 @@ namespace codac
         if(added_ctc.second->type() == Contractor::Type::T_IBEX && &added_ctc.second->ibex_ctc() == &ctc)
         {
           added_ctc.second->set_name(name);
-            contractor_found = true;
+          contractor_found = true;
         }
 
       if(!contractor_found)
@@ -103,7 +107,7 @@ namespace codac
           dot_file << ("dom" + std::to_string(dom.second->id())) + "; ";
 
           // Adding its components
-          Domain *one_component = NULL;
+          Domain *one_component = nullptr;
           for(const auto& dom_i : m_map_domains) // todo: a fast get_components method
             if(dom_i.second->is_component_of(*dom.second))
             {
@@ -112,7 +116,7 @@ namespace codac
             }
 
           // Adding their component-contractor
-          if(one_component != NULL) // todo: transform it as an assert
+          if(one_component) // todo: transform it as an assert
           for(auto& ctc : m_map_ctc)
             if(ctc.second->type() == Contractor::Type::T_COMPONENT)
               for(const auto& dom_i : ctc.second->domains())

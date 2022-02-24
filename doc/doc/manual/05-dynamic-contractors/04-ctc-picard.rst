@@ -19,7 +19,7 @@ Definition
     
   .. math::
 
-    \left.\begin{array}{r}\dot{\mathbf{x}}(t)=\mathbf{f}\big(\mathbf{x}(t)\big)\end{array}\right. \longrightarrow \mathcal{C}_{\textrm{picard}}\big([\mathbf{x}](\cdot),[\mathbf{v}](\cdot)\big)
+    \left.\begin{array}{r}\dot{\mathbf{x}}(t)=\mathbf{f}\big(\mathbf{x}(t)\big)\end{array}\right. \longrightarrow \mathcal{C}_{\textrm{picard}}\big([\mathbf{x}](\cdot)\big)
 
   .. tabs::
 
@@ -32,6 +32,7 @@ Definition
 
       CtcPicard ctc_picard(TFunction("<var1>", "<var2...>", "<exp>"));
       ctc_picard.contract(x);
+
 
 
 .. admonition:: Technical documentation

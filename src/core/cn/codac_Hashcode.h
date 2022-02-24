@@ -13,8 +13,8 @@
 #define __CODAC_HASHCODE_H__
 
 #include <cstdint>
-#include "codac_Contractor.h"
-#include "codac_Domain.h"
+#include <cstdlib>
+#include <functional>
 
 namespace codac
 {
@@ -48,5 +48,18 @@ namespace codac
       std::uintptr_t m_ptr;
   };
 }
+
+namespace std
+{
+  template <>
+  struct hash<codac::Domain>
+  {
+    std::uintptr_t operator()(const codac::Domain& dom) const
+    {
+      return codac::DomainHashcode::uintptr(dom);
+    }
+  };
+}
+
 
 #endif

@@ -246,6 +246,14 @@ namespace codac
       Trajectory& shift_tdomain(double a);
 
       /**
+       * \brief Returns true if the same amount of time separates each value
+       *
+       * \param h the evaluated timestep (constant if true is returned)
+       * \return `true` if h is constant
+       */
+      bool constant_timestep(double& h) const;
+
+      /**
        * \brief Samples the trajectory by adding new points to the map of values
        *
        * \note If the trajectory is defined as an analytic function, then the object is
@@ -313,7 +321,8 @@ namespace codac
        *
        * \note If the trajectory is defined from an analytic function,
        *       the exact differentiation is returned. Otherwise, from a map
-       *       of values, finite differences are computed.
+       *       of values, finite differences are computed. In this case,
+       *       the timestep of the values must be constant for accurate computation.
        * 
        * \return a derivative trajectory
        */
@@ -452,7 +461,7 @@ namespace codac
 
         //union
         //{
-          TFunction *m_function = NULL; //!< optional pointer to the analytic expression of this trajectory
+          TFunction *m_function = nullptr; //!< optional pointer to the analytic expression of this trajectory
           std::map<double,double> m_map_values; //!< optional map of values <t,y>: \f$x(t)=y\f$
         //};
 

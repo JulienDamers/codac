@@ -333,6 +333,20 @@ namespace codac
        */
       TrajectoryVector& sample(const TrajectoryVector& x);
 
+      /**
+       * \brief Makes a trajectory continuous by avoiding infinite slopes
+       *
+       * \note This is mainly used when angles are expressed between \f$[-\pi,\pi]\f$,
+       *       which produces troublesome discontinuities. For instance, a tube directly
+       *       built from such discontinuous trajectory will be made of very large slices,
+       *       inducing unwanted pessimism.
+       *
+       * \note The previous sampling of this trajectory is preserved
+       *
+       * \return a reference to this trajectory
+       */
+      TrajectoryVector& make_continuous();
+
       /// @}
       /// \name Integration
       /// @{
@@ -514,7 +528,7 @@ namespace codac
       // Class variables:
 
         int m_n = 0; //!< dimension of this trajectory
-        Trajectory *m_v_trajs = NULL; //!< array of components (scalar trajectories)
+        Trajectory *m_v_trajs = nullptr; //!< array of components (scalar trajectories)
 
       friend void deserialize_TrajectoryVector(std::ifstream& bin_file, TrajectoryVector *&traj);
       friend class TubeVector; // for TubeVector::deserialize method

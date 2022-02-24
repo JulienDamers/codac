@@ -182,7 +182,7 @@ The distance function :math:`g(\mathbf{x},\mathbf{b})` between the robot and a l
 
     for i in range (0,len(y)): # we add the observ. constraint for each range-only measurement
 
-      p = cn.create_dom(IntervalVector(4)) # intermed. variable (state at t_i)
+      p = cn.create_interm_var(IntervalVector(4)) # intermed. variable (state at t_i)
 
       # Distance constraint: relation between the state at t_i and the ith beacon position
       cn.add(ctc.dist, [cn.subvector(p,0,1), b[i], y[i]])
@@ -197,7 +197,7 @@ The distance function :math:`g(\mathbf{x},\mathbf{b})` between the robot and a l
 
     for(int i = 0 ; i < 3 ; i++) // we add the observ. constraint for each range-only measurement
     {
-      IntervalVector& p = cn.create_dom(IntervalVector(4)); // intermed. variable (state at t_i)
+      IntervalVector& p = cn.create_interm_var(IntervalVector(4)); // intermed. variable (state at t_i)
 
       // Distance constraint: relation between the state at t_i and the ith beacon position
       cn.add(ctc::dist, {cn.subvector(p,0,1), b[i], y[i]});
@@ -272,6 +272,7 @@ Then you have two options: read the details about the features of Codac (domains
   /manual/01-introduction/index
   /manual/02-variables/index
   /manual/03-domains/index
+  /manual/10-functions/index
   /manual/04-static-contractors/index
   /manual/05-dynamic-contractors/index
   /manual/06-contractor-network/index

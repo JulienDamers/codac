@@ -58,10 +58,12 @@
 
     src/core/arithmetic/codac_py_arithmetic.cpp
     src/core/cn/codac_py_ContractorNetwork.cpp
+    src/core/cn/codac_py_Variable.cpp
 
     src/core/contractors/static/codac_py_CtcDist.cpp
     src/core/contractors/static/codac_py_CtcFunction.cpp
     src/core/contractors/static/codac_py_CtcConstell.cpp
+    src/core/contractors/static/codac_py_CtcNewton.cpp
 
     src/core/contractors/dyn/codac_py_DynCtc.cpp
     src/core/contractors/dyn/codac_py_CtcDelay.cpp
@@ -69,6 +71,7 @@
     src/core/contractors/dyn/codac_py_CtcEval.cpp
     src/core/contractors/dyn/codac_py_CtcLohner.cpp
     src/core/contractors/dyn/codac_py_CtcPicard.cpp
+    src/core/contractors/dyn/codac_py_CtcStatic.cpp
 
     src/core/domains/tube/codac_py_Tube.cpp
     src/core/domains/tube/codac_py_TubeVector.cpp

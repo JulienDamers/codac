@@ -28,10 +28,11 @@ namespace codac
   #define TUBE_MAX_NB_DISPLAYED_SLICES  2000
 
   // HTML color codes:
-  #define DEFAULT_BEACON_COLOR          "#D65A00[#FFB93C]"
-  #define DEFAULT_TRAJMAP_COLOR         "#276279"
-  #define DEFAULT_MAPBCKGRND_COLOR      "#d2d2d2[#d2d2d2]"
-  #define DEFAULT_OBS_COLOR             "gray"
+  #define DEFAULT_BEACON_COLOR                  "#D65A00[#FFB93C]"
+  #define DEFAULT_TRAJMAP_COLOR                 "#276279"
+  #define DEFAULT_MAPBCKGRND_COLOR              "#d2d2d2[#d2d2d2]"
+  #define DEFAULT_OBS_COLOR                     "gray"
+  #define DEFAULT_VEHICLE_DISPLAY_ON_EACH_TRAJ  true
 
   // Vehicle Display modes
   #define DEFAULT_VEHICLE_ON            1
@@ -157,7 +158,7 @@ namespace codac
        * \param traj_colormap an optional const pointer to a Trajectory object in order to have a custom
        *        color evolution instead of a linear time evolving color 
        */
-      void set_tube_color(const TubeVector *tube, const ColorMap& colormap, const Trajectory *traj_colormap = NULL);
+      void set_tube_color(const TubeVector *tube, const ColorMap& colormap, const Trajectory *traj_colormap = nullptr);
 
       /**
        * \brief Removes a tube from this figure
@@ -186,9 +187,10 @@ namespace codac
        * \param index_x integer reference for the x-horizontal state component
        * \param index_y integer reference for the y-horizontal state component
        * \param color an optional constant color for this object
-       * \param mode an optional setting to display a vehicle at the end of the trajectory or not
+       * \param vehicle_display an optional boolean parameter to display a vehicle at the end of the trajectory
        */
-      void add_trajectory(const TrajectoryVector *traj, const std::string& name, int index_x, int index_y, const std::string& color = DEFAULT_TRAJMAP_COLOR, const int mode = DEFAULT_VEHICLE_ON);
+      void add_trajectory(const TrajectoryVector *traj, const std::string& name, int index_x, int index_y, const std::string& color = DEFAULT_TRAJMAP_COLOR, bool vehicle_display = DEFAULT_VEHICLE_DISPLAY_ON_EACH_TRAJ);
+
 
       /**
        * \brief Adds a trajectory vector object (x,y,heading) to this figure
@@ -202,9 +204,9 @@ namespace codac
        * \param index_y integer reference for the y-horizontal state component
        * \param index_heading integer reference for the heading state component
        * \param color an optional constant color for this object
-       * \param mode an optional setting to display a vehicle at the end of the trajectory or not
+       * \param vehicle_display an optional boolean parameter to display a vehicle at the end of the trajectory
        */
-      void add_trajectory(const TrajectoryVector *traj, const std::string& name, int index_x, int index_y, int index_heading, const std::string& color = DEFAULT_TRAJMAP_COLOR, const int mode = DEFAULT_VEHICLE_ON);
+      void add_trajectory(const TrajectoryVector *traj, const std::string& name, int index_x, int index_y, int index_heading, const std::string& color = DEFAULT_TRAJMAP_COLOR, bool vehicle_display = DEFAULT_VEHICLE_DISPLAY_ON_EACH_TRAJ);
 
       /**
        * \brief Sets a new name for a trajectory
@@ -230,7 +232,15 @@ namespace codac
        * \param traj_colormap an optional const pointer to a Trajectory object in order to have a custom
        *        color evolution instead of a linear time evolving color 
        */
-      void set_trajectory_color(const TrajectoryVector *traj, const ColorMap& colormap, const Trajectory *traj_colormap = NULL);
+      void set_trajectory_color(const TrajectoryVector *traj, const ColorMap& colormap, const Trajectory *traj_colormap = nullptr);
+
+      /**
+       * \brief Displays a vehicle at the end of a trajectory
+       *
+       * \param traj the const pointer to the TrajectoryVector object for which the vehicle will be drawn
+       * \param vehicle_display boolean parameter
+       */
+      void set_vehicle_display(const TrajectoryVector *traj, bool vehicle_display);
 
       /**
        * \brief Sets a color map for a given trajectory
@@ -497,7 +507,7 @@ namespace codac
        * \param color color of the observation
        * \param params VIBes parameters related to the observation
        */
-      void draw_observation(const IntervalVector& obs, const Vector& pose, const std::string& color, const vibes::Params& params);
+      void draw_observation(const IntervalVector& obs, const Vector& pose, const std::string& color = "", const vibes::Params& params = vibes::Params());
       
       /**
        * \brief Draws a range-and-bearing uncertain observation on the map
@@ -511,7 +521,7 @@ namespace codac
        * \param color color of the observation
        * \param params VIBes parameters related to the observation
        */
-      void draw_observation(const IntervalVector& obs, const TrajectoryVector *traj, const std::string& color, const vibes::Params& params);
+      void draw_observation(const IntervalVector& obs, const TrajectoryVector *traj, const std::string& color = "", const vibes::Params& params = vibes::Params());
       
       /**
        * \brief Returns actual or estimated heading related to some TrajectoryVector at t
@@ -538,7 +548,7 @@ namespace codac
         std::string name; //!< human readable identifier of the tube
         std::string color = ""; //!< constant color of the tube
         std::pair<ColorMap,const Trajectory*> color_map; //!< custom colormap of the tube
-        const Tube *tube_x_copy = NULL, *tube_y_copy; //!< to display previous values in background, before any new contraction
+        const Tube *tube_x_copy = nullptr, *tube_y_copy; //!< to display previous values in background, before any new contraction
         bool from_first_to_last = !true; //!< order of slices display (each one on top of the next/previous one)
         int index_x, index_y; //!< integer references for state components
       };
@@ -553,7 +563,11 @@ namespace codac
         std::string color = ""; //!< constant color of the trajectory
         std::pair<ColorMap,const Trajectory*> color_map; //!< custom colormap of the trajectory
         int index_x, index_y, index_heading = -1; //!< integer references for state components ; -1: not defined
+<<<<<<< HEAD
         int vehicle_display_mode = DEFAULT_VEHICLE_ON;
+=======
+        bool vehicle_display = DEFAULT_VEHICLE_DISPLAY_ON_EACH_TRAJ; //!< boolean for vehicle display
+>>>>>>> upstream/master
       };
 
       std::map<const TubeVector*,FigMapTubeParams> m_map_tubes; //!< map of Tube objects to be displayed, together with parameters

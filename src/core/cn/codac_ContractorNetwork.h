@@ -14,12 +14,14 @@
 
 #include <deque>
 #include <initializer_list>
+#include <unordered_map>
 #include "codac_Ctc.h"
 #include "codac_DynCtc.h"
 #include "codac_Domain.h"
-#include "codac_Contractor.h"
 #include "codac_CtcDeriv.h"
 #include "codac_Hashcode.h"
+#include "codac_Contractor.h"
+#include "codac_Variable.h"
 
 namespace ibex
 {
@@ -28,8 +30,8 @@ namespace ibex
 
 namespace codac
 {
+  class Variable;
   class Domain;
-  class Contractor;
   class DynCtc;
   class CtcDeriv;
   class DomainHashcode;
@@ -96,7 +98,8 @@ namespace codac
        * \param i initial domain providing information on the type and initial set of values
        * \return a reference to the created Interval domain variable
        */
-      Interval& create_dom(const Interval& i);
+      Interval& create_interm_var(const Interval& i);
+      Interval& create_dom(const Interval& i); // deprecated
 
       /**
        * \brief Creates an IntervalVector intermediate variable with a reference kept in the 
@@ -109,7 +112,8 @@ namespace codac
        * \param iv initial domain providing information on the type and initial set of values
        * \return a reference to the created IntervalVector domain variable
        */
-      IntervalVector& create_dom(const IntervalVector& iv);
+      IntervalVector& create_interm_var(const IntervalVector& iv);
+      IntervalVector& create_dom(const IntervalVector& iv); // deprecated
 
       /**
        * \brief Creates a Tube intermediate variable with a reference kept in the 
@@ -122,7 +126,8 @@ namespace codac
        * \param t initial domain providing information on the type and initial set of values
        * \return a reference to the created Tube domain variable
        */
-      Tube& create_dom(const Tube& t);
+      Tube& create_interm_var(const Tube& t);
+      Tube& create_dom(const Tube& t); // deprecated
 
       /**
        * \brief Creates a TubeVector intermediate variable with a reference kept in the 
@@ -135,7 +140,8 @@ namespace codac
        * \param tv initial domain providing information on the type and initial set of values
        * \return a reference to the created TubeVector domain variable
        */
-      TubeVector& create_dom(const TubeVector& tv);
+      TubeVector& create_interm_var(const TubeVector& tv);
+      TubeVector& create_dom(const TubeVector& tv); // deprecated
 
       /**
        * \brief Creates a subvector of a Vector domain
@@ -193,6 +199,9 @@ namespace codac
        */
       void add(DynCtc& dyn_ctc, const std::vector<Domain>& v_domains);
 
+
+      void add(ContractorNetwork& cn);
+
       /**
        * \brief Adds continuous data \f$[y]\f$ to a tube \f$[x](\cdot)\f$ at \f$t\f$ (used for realtime applications).
        *
@@ -238,6 +247,19 @@ namespace codac
       double contract(bool verbose = false);
 
       /**
+       * \brief Launch the contraction process with specified domains in place of Variables objects
+       *
+       * Contractions are performed until a fixed point has been reached on the whole graph.
+       *
+       * \param var_dom unordered map of type <Var,Domain>, for instance <IntervalVar,Interval>
+       * \param verbose verbose mode, `false` by default
+       * \return the computation time in seconds
+       */
+      double contract(const std::unordered_map<Domain,Domain>& var_dom, bool verbose = false);
+
+      double contract_ordered_mode(bool verbose = false);
+
+      /**
        * \brief Launch the contraction process and stops after \f$dt\f$ seconds
        *
        * Contractions are performed until a fixed point has been obtained on the whole graph,
@@ -276,6 +298,11 @@ namespace codac
       void trigger_all_contractors();
 
       /**
+       * \brief Resets the initial value of the domains declared as intermediate variables.
+       */
+      void reset_interm_vars();
+
+      /**
        * \brief Returns the number of contractors that are waiting for process.
        *
        * If the propagation process reached a fixed point, then this number is zero.
@@ -283,6 +310,9 @@ namespace codac
        * \return number of active contractors
        */
       int nb_ctc_in_stack() const;
+
+      int iteration_nb() const;
+      
 
       /// @}
       /// \name Visualization
@@ -372,13 +402,17 @@ namespace codac
        */
       void add_ctc_to_queue(Contractor *ac, std::deque<Contractor*>& ctc_deque);
 
+      void reset_value(Domain *dom);
+
       /**
        * \brief Triggers on the contractors related to the given Domain
        *
        * \param dom pointer to the Domain
        * \param ctc_to_avoid optional pointer to a Contractor to not activate
        */
-      void trigger_ctc_related_to_dom(Domain *dom, Contractor *ctc_to_avoid = NULL);
+      void trigger_ctc_related_to_dom(Domain *dom, Contractor *ctc_to_avoid = nullptr);
+
+      void replace_var_by_dom(Domain var, Domain dom);
 
     protected:
 
@@ -386,13 +420,15 @@ namespace codac
       std::map<ContractorHashcode,Contractor*> m_map_ctc; //!< pointers to the abstract Contractor objects the graph is made of
       std::deque<Contractor*> m_deque; //!< queue of active contractors
 
+      int m_iteration_nb = 0;
       float m_fixedpoint_ratio = 0.0001; //!< fixed point ratio for propagation limit
       double m_contraction_duration_max = std::numeric_limits<double>::infinity(); //!< computation time limit
 
-      CtcDeriv *m_ctc_deriv = NULL; //!< optional pointer to a CtcDeriv object that can be automatically added in the graph
+      CtcDeriv *m_ctc_deriv = nullptr; //!< optional pointer to a CtcDeriv object that can be automatically added in the graph
       std::list<std::pair<Domain*,Domain*> > m_domains_related_to_ctcderiv;
 
       friend class Domain;
+      friend class Contractor;
   };
 }
 

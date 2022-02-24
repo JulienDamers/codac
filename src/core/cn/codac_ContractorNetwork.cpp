@@ -34,7 +34,7 @@ namespace codac
       for(auto& ctc : m_map_ctc)
         delete ctc.second;
 
-      if(m_ctc_deriv != NULL)
+      if(m_ctc_deriv)
         delete m_ctc_deriv;
     }
 
@@ -61,22 +61,46 @@ namespace codac
 
     Interval& ContractorNetwork::create_dom(const Interval& i)
     {
-      return add_dom(Domain(i))->interval();
+      cout << "create_dom(): deprecated. Use create_interm_var() instead." << endl;
+      return create_interm_var(i);
+    }
+
+    Interval& ContractorNetwork::create_interm_var(const Interval& i)
+    {
+      return add_dom(Domain(i, true))->interval();
     }
 
     IntervalVector& ContractorNetwork::create_dom(const IntervalVector& iv)
     {
-      return add_dom(Domain(iv))->interval_vector();
+      cout << "create_dom(): deprecated. Use create_interm_var() instead." << endl;
+      return create_interm_var(iv);
+    }
+
+    IntervalVector& ContractorNetwork::create_interm_var(const IntervalVector& iv)
+    {
+      return add_dom(Domain(iv, true))->interval_vector();
     }
 
     Tube& ContractorNetwork::create_dom(const Tube& t)
     {
-      return add_dom(Domain(t))->tube();
+      cout << "create_dom(): deprecated. Use create_interm_var() instead." << endl;
+      return create_interm_var(t);
+    }
+
+    Tube& ContractorNetwork::create_interm_var(const Tube& t)
+    {
+      return add_dom(Domain(t, true))->tube();
     }
 
     TubeVector& ContractorNetwork::create_dom(const TubeVector& tv)
     {
-      return add_dom(Domain(tv))->tube_vector();
+      cout << "create_dom(): deprecated. Use create_interm_var() instead." << endl;
+      return create_interm_var(tv);
+    }
+
+    TubeVector& ContractorNetwork::create_interm_var(const TubeVector& tv)
+    {
+      return add_dom(Domain(tv, true))->tube_vector();
     }
 
     IntervalVector& ContractorNetwork::subvector(Vector& v, int start_index, int end_index)
@@ -264,7 +288,7 @@ namespace codac
         {
           static_cast<CtcEval&>(dyn_ctc).enable_time_propag(false);
 
-          if(m_ctc_deriv == NULL)
+          if(m_ctc_deriv == nullptr)
             m_ctc_deriv = new CtcDeriv();
           add(*m_ctc_deriv, {v_domains[2], v_domains[3]});
         }
@@ -375,6 +399,19 @@ namespace codac
           dom->add_ctc(ctc_ptr);
       }
     }
+
+    void ContractorNetwork::add(ContractorNetwork& cn)
+    {
+      // Getting the actual contractor (maybe the same if not already added)
+      Contractor *ctc_ptr = add_ctc(cn);
+
+      // Sharing domains from sub_cn to cn
+      for(auto& dom : cn.m_map_domains)
+      {
+        Domain* ad = add_dom(*dom.second);
+        ad->add_ctc(ctc_ptr);
+      }
+    }
     
     void ContractorNetwork::add_data(Tube& tube, double t, const Interval& y)
     {
@@ -398,7 +435,6 @@ namespace codac
         throw Exception(__func__, "domain already empty when added to the CN");
 
       DomainHashcode hash(ad);
-
       if(m_map_domains.find(hash) != m_map_domains.end())
         return m_map_domains[hash];
     
@@ -452,7 +488,7 @@ namespace codac
             vector<Domain*> v_doms(new_dom->tube().nb_slices() + 1);
             v_doms[0] = new_dom;
             int i = 0;
-            for(Slice *s = new_dom->tube().first_slice() ; s != NULL ; s = s->next_slice())
+            for(Slice *s = new_dom->tube().first_slice() ; s ; s = s->next_slice())
             {
               i++;
               v_doms[i] = add_dom(Domain(*s));
@@ -466,7 +502,7 @@ namespace codac
               dom_i->add_ctc(ac_component);
 
             // Dependencies slice <-> slice
-            for(Slice *s = new_dom->tube().first_slice() ; s->next_slice() != NULL ; s = s->next_slice())
+            for(Slice *s = new_dom->tube().first_slice() ; s->next_slice() ; s = s->next_slice())
             {
               Domain *dom_i1 = add_dom(Domain(*s));
               Domain *dom_i2 = add_dom(Domain(*(s->next_slice())));
@@ -490,6 +526,7 @@ namespace codac
 
       if(it == m_map_ctc.end())
       {
+        // todo: trigger only "contracting" contractors?
         Contractor *new_ctc = new Contractor(ac);
         m_map_ctc[hash] = new_ctc;
         add_ctc_to_queue(new_ctc, m_deque);
