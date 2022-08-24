@@ -459,6 +459,29 @@ namespace codac
       return largest;
     }
     
+    Slice* Tube::steepest_slice()
+    {
+      return const_cast<Slice*>(static_cast<const Tube&>(*this).steepest_slice());
+    }
+
+    const Slice* Tube::steepest_slice() const
+    {
+      double max_diff = 0.;
+      const Slice *steepest_slice = first_slice();
+      
+      for(const Slice *s = first_slice() ; s != nullptr ; s = s->next_slice())
+      {
+        double diff = fabs(s->output_gate().mid() - s->input_gate().mid());
+        if(diff > max_diff)
+        {
+          steepest_slice = s;
+          max_diff = diff;
+        }
+      }
+
+      return steepest_slice;
+    }
+  
     const Interval Tube::slice_tdomain(int slice_id) const
     {
       assert(slice_id >= 0 && slice_id < nb_slices());
@@ -899,15 +922,14 @@ namespace codac
     double Tube::max_gate_diam(double& t) const
     {
       const Slice *slice = first_slice();
+      t = slice->tdomain().lb();
 
       if(slice->input_gate().is_unbounded())
       {
-        t = slice->tdomain().lb();
         return numeric_limits<double>::infinity();
       }
 
-      double max_diam = 0.;
-      double max_thickness = slice->input_gate().diam();
+      double max_diam = slice->input_gate().diam();
 
       while(slice)
       {
@@ -919,15 +941,14 @@ namespace codac
 
         if(slice->output_gate().diam() > max_diam)
         {
-          max_diam = slice->codomain().diam();
-          max_thickness = slice->output_gate().diam();
+          max_diam = slice->output_gate().diam();
           t = slice->tdomain().ub();
         }
 
         slice = slice->next_slice();
       }
 
-      return max_thickness;
+      return max_diam;
     }
     
     const Trajectory Tube::diam(bool gates_thicknesses) const

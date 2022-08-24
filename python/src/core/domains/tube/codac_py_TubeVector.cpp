@@ -14,14 +14,13 @@
 #include <pybind11/stl.h>
 #include <pybind11/operators.h>
 #include <pybind11/functional.h>
-#include "pyIbex_type_caster.h"
+#include "codac_type_caster.h"
 
 #include "codac_TubeVector.h"
 // Generated file from Doxygen XML (doxygen2docstring.py):
 #include "codac_py_TubeVector_docs.h"
 
 using namespace std;
-using namespace ibex;
 using namespace codac;
 namespace py = pybind11;
 using namespace pybind11::literals;
@@ -97,10 +96,6 @@ void export_TubeVector(py::module& m)
     .def(py::init<const string &>(),
       TUBEVECTOR_TUBEVECTOR_STRING,
       "binary_file_name"_a)
-
-    //.def(py::init<const string&,TrajectoryVector * &>(),
-    //  TUBEVECTOR_TUBEVECTOR_STRING_TRAJECTORYVECTOR,
-    //  "binary_file_name"_a, "traj"_a)
 
     .def("size", &TubeVector::size,
       TUBEVECTOR_INT_SIZE)

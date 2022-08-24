@@ -23,7 +23,7 @@ Codac (Catalog Of Domains And Contractors) is a C++/Python library providing too
 | **What about mobile robotics?**
 | In the field of robotics, complex problems such as **non-linear state estimation**, **parameter estimation**, **delays**, **SLAM** or **kidnapped robot problems** can be solved in a very few steps by using constraint programming. Even though the Codac library is not meant to target only robotics problems, the design of its interface has been largely influenced by the needs of the above class of applications. Codac provides solutions to deal with these problems, that are usually hardly solvable by conventional methods such as particle approaches or Kalman filters. 
 
-In a nutshell, Codac is a high-level **constraint programming framework** providing tools to easily solve a wide range of problems.
+In a nutshell, Codac is a **constraint programming framework** providing tools to easily solve a wide range of problems.
 
 
 .. contents:: Contents of this page
@@ -257,13 +257,13 @@ Then you have two options: read the details about the features of Codac (domains
   | Note that Codac stands on the `IBEX library <http://www.ibex-lib.org/>`_ for interval analysis computations and static contractors on boxes.
   | `Read the IBEX documentation. <http://www.ibex-lib.org/doc/>`_
 
-  .. rubric:: pyIbex
-
-  .. Figure:: img/logo_pyibex.jpg
-    :align: center
-
-  | The Python API of Codac is available thanks to the `pyIbex library <http://benensta.github.io/pyIbex/>`_ providing Python access to the IBEX library.
-  | `Read the pyIbex documentation. <http://benensta.github.io/pyIbex/sphinx/index.html>`_
+..  .. rubric:: pyIbex
+..
+..  .. Figure:: img/logo_pyibex.jpg
+..    :align: center
+..
+..  | The Python API of Codac is available thanks to the `pyIbex library <http://benensta.github.io/pyIbex/>`_ providing Python access to the IBEX library.
+..  | `Read the pyIbex documentation. <http://benensta.github.io/pyIbex/sphinx/index.html>`_
 
 
 .. toctree:: 
@@ -348,85 +348,108 @@ Contributors
   * `Benoît Desrochers <http://www.ensta-bretagne.fr/desrochers>`_
   * `Luc Jaulin <https://www.ensta-bretagne.fr/jaulin/>`_
   * `Gilles Chabert <https://web.imt-atlantique.fr/x-info/gchabe08/>`_
-  * Julien Damers
-  * `Raphael Voges <https://raphael-voges.de/>`_
-  * `Fabrice Le Bars <https://www.ensta-bretagne.fr/lebars/>`_
   * Auguste Bourgois
+  * Julien Damers
+  * `Fabrice Le Bars <https://www.ensta-bretagne.fr/lebars/>`_
+  * `Raphael Voges <https://raphael-voges.de/>`_
+  * Quentin Brateau
   * `Thomas Le Mézo <https://www.ensta-bretagne.fr/lemezo/>`_
   * `Cyril Bouvier <http://www.lirmm.fr/~bouvier/index.en.html>`_
   * `Bertrand Neveu <http://imagine.enpc.fr/~neveub/>`_
   * `Peter Franek <http://www.cs.cas.cz/~franek/>`_
+  * `Gilles Trombettoni <https://www.lirmm.fr/~trombetton/>`_
+  * Verlein Radwan
+  * `Mohamed Saad Ibn Seddik <https://msis.github.io/>`_
 
 
 Main related publications
 =========================
 
-.. |polar-pdf| replace:: PDF
-.. _polar-pdf: https://www.ensta-bretagne.fr/jaulin/paper_polar.pdf
-.. |datasso-pdf| replace:: PDF
-.. _datasso-pdf: http://simon-rohou.fr/research/datasso/datasso_paper.pdf
-.. |robloc-pdf| replace:: PDF
-.. _robloc-pdf: http://simon-rohou.fr/research/robloc/robloc_toc.pdf
-.. |loopproof-pdf| replace:: PDF
-.. _loopproof-pdf: http://simon-rohou.fr/research/loopproof/loopproof_paper.pdf
-.. |tubeval-pdf| replace:: PDF
-.. _tubeval-pdf: http://simon-rohou.fr/research/tubeval/tubeval_paper.pdf
-.. |tubint-pdf| replace:: PDF
-.. _tubint-pdf: http://simon-rohou.fr/research/tubint/tubint_paper.pdf
-.. |loopdetect-pdf| replace:: PDF
-.. _loopdetect-pdf: https://www.ensta-bretagne.fr/jaulin/paper_loop.pdf
-.. |voges-phd-pdf| replace:: PDF
-.. _voges-phd-pdf: https://www.repo.uni-hannover.de/bitstream/handle/123456789/9990/publication_thesis_voges.pdf
-.. |bourgois-phd-pdf| replace:: PDF
-.. _bourgois-phd-pdf: https://www.ensta-bretagne.fr/jaulin/thesis_auguste.pdf
+.. |polar-title| replace:: A Minimal contractor for the Polar equation
+.. _polar-title: https://www.ensta-bretagne.fr/jaulin/paper_polar.pdf
+.. |polar-authors| replace:: Desrochers, Jaulin
+.. |polar-journal| replace:: Engineering Applications of Artificial Intelligence
+.. |polar-year| replace:: 2016
 
-====  ===================  ===============================  =========================  ========================
-2021  |bourgois-phd-pdf|_  Safe and collaborative           Auguste Bourgois           PhD thesis              
-                           autonomous underwater docking                                                       
-                                                                                                               
-2020  |datasso-pdf|_       Set-membership state             S. Rohou, B. Desrochers,   ICRA Conference         
-                           estimation by solving            L. Jaulin                                          
-                           data association                                                                    
-                                                                                                               
-2020  |voges-phd-pdf|_     Bounded-error visual-LiDAR       Raphael Voges              PhD thesis              
-                           odometry on mobile robots under                                                     
-                           consideration of spatiotemporal                                                     
-                           uncertainties                                                                       
-                                                                                                               
-2019  |robloc-pdf|_        Reliable robot localization: a   S. Rohou, L. Jaulin,       ISTE Ltd, Wiley         
-                           constraint-programming approach  L. Mihaylova, F. Le Bars,                          
-                           over dynamical systems           S. M. Veres                                        
-                                                                                                               
-2018  |loopproof-pdf|_     Proving the existence of loops   S. Rohou, P. Franek,       International Journal   
-                           in robot trajectories            C. Aubry, L. Jaulin        of Robotics Research    
-                                                                                                               
-2018  |tubeval-pdf|_       Reliable non-linear state        S. Rohou, L. Jaulin,       Automatica              
-                           estimation involving time        L. Mihaylova, F. Le Bars,                          
-                           uncertainties                    S. M. Veres                                        
-                                                                                                               
-2017  |tubint-pdf|_        Guaranteed computation of        S. Rohou, L. Jaulin,       Robotics and Autonomous 
-                           robot trajectories               L. Mihaylova, F. Le Bars,  Systems                 
-                                                            S. M. Veres                                        
-                                                                                                               
-2016  |polar-pdf|_         A Minimal contractor for the     B. Desrochers,             Engineering             
-                           Polar equation                   L. Jaulin                  Applications of         
-                                                                                       Artificial Intelligence 
-                                                                                                               
-2013  |loopdetect-pdf|_    Loop detection of mobile robots  C. Aubry, R. Desmare,      Automatica              
-                           using interval analysis          L. Jaulin                                          
-====  ===================  ===============================  =========================  ========================
+.. |datasso-title| replace:: Set-membership state estimation by solving data association
+.. _datasso-title: http://simon-rohou.fr/research/datasso/datasso_paper.pdf
+.. |datasso-authors| replace:: Rohou, Desrochers, Jaulin
+.. |datasso-journal| replace:: ICRA Conference
+.. |datasso-year| replace:: 2020
 
+.. |robloc-title| replace:: Reliable robot localization: a constraint-programming approach...
+.. _robloc-title: http://simon-rohou.fr/research/robloc/robloc_toc.pdf
+.. |robloc-authors| replace:: Rohou, Jaulin, Mihaylova, Le Bars, Veres
+.. |robloc-journal| replace:: ISTE Ltd, Wiley
+.. |robloc-year| replace:: 2019
 
-.. How to cite this project?
-.. =========================
-.. 
-.. We suggest the following BibTeX template to cite Codac in scientific discourse:
-.. 
-.. .. code-block:: none
-.. 
-..   @misc{codac,
-..      author = {Simon Rohou and Benoit Desrochers and others},
-..      year = {2021},
-..      note = {http://codac.io},
-..      title = {The {Codac} library -- {C}onstraint-programming for robotics}
-..   }
+.. |loopproof-title| replace:: Proving the existence of loops in robot trajectories
+.. _loopproof-title: http://simon-rohou.fr/research/loopproof/loopproof_paper.pdf
+.. |loopproof-authors| replace:: Rohou, Franek, Aubry, Jaulin
+.. |loopproof-journal| replace:: International Journal of Robotics Research
+.. |loopproof-year| replace:: 2018
+
+.. |tubeval-title| replace:: Reliable non-linear state estimation involving time uncertainties
+.. _tubeval-title: http://simon-rohou.fr/research/tubeval/tubeval_paper.pdf
+.. |tubeval-authors| replace:: Rohou, Jaulin, Mihaylova, Le Bars, Veres
+.. |tubeval-journal| replace:: Automatica
+.. |tubeval-year| replace:: 2018
+
+.. |tubint-title| replace:: Guaranteed computation of robot trajectories
+.. _tubint-title: http://simon-rohou.fr/research/tubint/tubint_paper.pdf
+.. |tubint-authors| replace:: Rohou, Jaulin, Mihaylova, Le Bars, Veres
+.. |tubint-journal| replace:: Robotics and Autonomous Systems
+.. |tubint-year| replace:: 2017
+
+.. |loopdetect-title| replace:: Loop detection of mobile robots using interval analysis
+.. _loopdetect-title: https://www.ensta-bretagne.fr/jaulin/paper_loop.pdf
+.. |loopdetect-authors| replace:: Aubry, Desmare, Jaulin
+.. |loopdetect-journal| replace:: Automatica
+.. |loopdetect-year| replace:: 2013
+
+.. |voges-phd-title| replace:: Bounded-error visual-LiDAR odometry on mobile robots...
+.. _voges-phd-title: https://www.repo.uni-hannover.de/bitstream/handle/123456789/9990/publication_thesis_voges.pdf
+.. |voges-phd-authors| replace:: Voges
+.. |voges-phd-journal| replace:: PhD thesis
+.. |voges-phd-year| replace:: 2020
+
+.. |bourgois-phd-title| replace:: Safe and collaborative autonomous underwater docking
+.. _bourgois-phd-title: https://www.ensta-bretagne.fr/jaulin/thesis_auguste.pdf
+.. |bourgois-phd-authors| replace:: Bourgois
+.. |bourgois-phd-journal| replace:: PhD thesis
+.. |bourgois-phd-year| replace:: 2021
+
+.. |desrochers-phd-title| replace:: Simultaneous Localization and Mapping in Unstructured Environments
+.. _desrochers-phd-title: https://hal.archives-ouvertes.fr/tel-01850567/document
+.. |desrochers-phd-authors| replace:: Desrochers
+.. |desrochers-phd-journal| replace:: PhD thesis
+.. |desrochers-phd-year| replace:: 2018
+
+.. csv-table::
+  :header: "Year", "Title (download paper)", "Authors", "Journal"
+
+  |bourgois-phd-year|,   |bourgois-phd-title|_,   |bourgois-phd-authors|,   |bourgois-phd-journal|
+  |datasso-year|,        |datasso-title|_,        |datasso-authors|,        |datasso-journal|
+  |voges-phd-year|,      |voges-phd-title|_,      |voges-phd-authors|,      |voges-phd-journal|
+  |robloc-year|,         |robloc-title|_,         |robloc-authors|,         |robloc-journal|
+  |desrochers-phd-year|, |desrochers-phd-title|_, |desrochers-phd-authors|, |desrochers-phd-journal|
+  |loopproof-year|,      |loopproof-title|_,      |loopproof-authors|,      |loopproof-journal|
+  |tubeval-year|,        |tubeval-title|_,        |tubeval-authors|,        |tubeval-journal|
+  |tubint-year|,         |tubint-title|_,         |tubint-authors|,         |tubint-journal|
+  |polar-year|,          |polar-title|_,          |polar-authors|,          |polar-journal|
+  |loopdetect-year|,     |loopdetect-title|_,     |loopdetect-authors|,     |loopdetect-journal|
+  
+
+How to cite this project?
+=========================
+
+We suggest the following BibTeX template to cite Codac in scientific discourse:
+
+.. code-block:: none
+
+ @misc{codac,
+    author = {Rohou, Simon and Desrochers, Benoit and others},
+    year = {2022},
+    note = {http://codac.io},
+    title = {The {Codac} library -- {C}onstraint-programming for robotics}
+ }

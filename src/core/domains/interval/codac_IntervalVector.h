@@ -12,6 +12,7 @@
 #ifndef __CODAC_INTERVALVECTOR_H__
 #define __CODAC_INTERVALVECTOR_H__
 
+#include "codac_Interval.h"
 #include "ibex_IntervalVector.h"
 
 namespace codac

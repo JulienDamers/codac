@@ -9,6 +9,8 @@ list(APPEND SRC_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/tests_predefined_tubes.h
         ${CMAKE_CURRENT_SOURCE_DIR}/tests_arithmetic.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/tests_cn.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/tests_ctc_box.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/tests_ctc_cart_prod.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/tests_ctc_delay.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/tests_ctc_deriv.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/tests_ctc_chain.cpp
@@ -26,6 +28,10 @@ list(APPEND SRC_TESTS ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/tests_slices_structure.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/tests_trajectory.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/tests_values.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/tests_sep_polygon.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/tests_sep_qinterprojf.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/tests_sep_fixpoint_proj.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/tests_sep_polar.cpp
         )
 
 add_executable(${TESTS_NAME} ${SRC_TESTS})

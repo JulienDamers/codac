@@ -12,6 +12,8 @@
 #ifndef __CODAC_INTERVALMATRIX_H__
 #define __CODAC_INTERVALMATRIX_H__
 
+#include "codac_Interval.h"
+#include "codac_IntervalVector.h"
 #include "ibex_IntervalMatrix.h"
 
 namespace codac

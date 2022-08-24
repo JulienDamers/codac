@@ -39,6 +39,101 @@ Codac releases
 
 -----------------------------------------------------------------
 
+Codac release 0.1.14 (released `Apr 14, 2022 <https://github.com/codac-team/codac/releases/tag/v0.1.14>`_)
+==========================================================================================================
+
+`Commits since previous release 0.1.13 <https://github.com/codac-team/codac/compare/v0.1.13...v0.1.14>`_
+
+Features added
+--------------
+
+* :commit:`e52a3ada3ae959ad4697a87a0b197890972447b9`: added examples from the former pyIbex library
+* :commit:`65d5320883f68116c08b4f686fd32ae602288654`: added ``VIBesFig::draw_vehicle()``
+
+Changes
+----------
+
+* :commit:`a5730999820fcb4c8c74d02ff46ca063567cc240`: SIVIA: updated code
+
+
+-----------------------------------------------------------------
+
+Codac release 0.1.13 (released `Apr 11, 2022 <https://github.com/codac-team/codac/releases/tag/v0.1.13>`_)
+==========================================================================================================
+
+`Commits since previous release 0.1.12 <https://github.com/codac-team/codac/compare/v0.1.12...v0.1.13>`_
+
+Features added
+--------------
+
+* :commit:`72596498a96b5f6fde066f9c095482ad16627f78`: added vector product between two vectors
+* :commit:`c7efd74cb93c1fb8449deb52c214dc37a281a4e6`: added ``steepest_slice()``, ``max_gate_diam()``
+* :commit:`f37e819a63c6032a51b8dfbaaf88c0bc02241f4f`: added SIVIA algorithms (Ctc,Sep) and binding
+* :commit:`bafa1e4b2571a2a3bdc80fe1a0a00ac45bef2b00`: defining ``SetColorMap``
+
+Dependencies
+------------
+
+* :commit:`633ab95dc7b6dc9d652763463446fe67b53c2629`: embedding pyIbex into Codac (several commits)
+
+Bugs fixed
+----------
+
+* :commit:`495eef93d1685abb658fa75abb4951fbf5a2af34`: corrected bug in ``TFnc``
+* :commit:`044535fcf63c5bb506ef63458d2c50a960b1ff46`: corrected bug on ``CtcLohner`` (input/output gates)
+
+Deprecated
+----------
+
+* :commit:`f8b0f8ca500a4da722db4e194748d91e4e4eb8ca`: indexing on ``Intervals`` is now deprecated (py)
+
+Documentation
+-------------
+
+* :commit:`59e8e3eb13a956043206dd78fc93eafb43501b25`: ``CtcFunction`` and how to deal with inequalities
+
+
+-----------------------------------------------------------------
+
+Codac release 0.1.12 (released `Feb 21, 2022 <https://github.com/codac-team/codac/releases/tag/v0.1.12>`_)
+==========================================================================================================
+
+`Commits since previous release 0.1.11 <https://github.com/codac-team/codac/compare/v0.1.11...v0.1.12>`_
+
+Features added
+--------------
+
+* :commit:`f53c7e9bdda3f8b8f98fcc2f3788447efd54dbb5`: towards polynomial representation of tubes
+
+
+-----------------------------------------------------------------
+
+Codac release 0.1.11 (released `Feb 17, 2022 <https://github.com/codac-team/codac/releases/tag/v0.1.11>`_)
+==========================================================================================================
+
+`Commits since previous release 0.1.10 <https://github.com/codac-team/codac/compare/v0.1.10...v0.1.11>`_
+
+
+Bugs fixed
+----------
+
+* :commit:`e34095d0967a02cda3fff51b010cd0355b7b7118`: corrected bug in ``VIBesFigPaving``
+* :commit:`4ac8120024cb144a57837fcf062ffbdb722c2dda`: corrected bug in ``TubeVector::invert`` (subsets)
+
+Documentation
+-------------
+
+* :commit:`3b391c11e9e82eb423565c250e2c9c43ffdb990e`: added ``Function`` page to the manual
+* :commit:`07023a5b4d8d794c0e9d538a3576e789318fd955`: added example in ``Lohner`` page
+
+Python binding
+--------------
+
+* :commit:`945314bfdcb033b9b14457fa160a1753fd4e385e`: casting for dealing with ``numpy.float32``
+
+
+-----------------------------------------------------------------
+
 Codac release 0.1.10 (released `Jan 31, 2022 <https://github.com/codac-team/codac/releases/tag/v0.1.10>`_)
 ==========================================================================================================
 

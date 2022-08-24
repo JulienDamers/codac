@@ -31,6 +31,11 @@
   if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
     message(STATUS "Configuring ${PROJECT_NAME} in DEBUG mode as none was specified.")
+    if(MSVC)
+      add_compile_options(/MD) # Temporary fix to avoid debug vs release inconsistencies...
+    else()
+      add_compile_options(-O3)
+    endif()
   endif()
 
   
@@ -65,12 +70,10 @@
 #    add_definitions(-U__STRICT_ANSI__)
 #  endif()
 
-  if(MSVC)
-    add_compile_options(/D _CRT_SECURE_NO_WARNINGS)
-  else()
-    add_compile_options(-Wall)
-    add_compile_options(-O3)
-  endif()
+  #if(NOT CMAKE_CXX_STANDARD)
+    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+  #endif()
 
 
 ################################################################################
@@ -125,6 +128,21 @@
 
 
 ################################################################################
+# Compile sources
+################################################################################
+
+  add_subdirectory(src) # C++ sources
+  add_subdirectory(doc) # documentation (Doxygen + Sphinx manual)
+
+  # Python binding:
+  option(WITH_PYTHON "Build Python binding" OFF)
+  if(WITH_PYTHON)
+    set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
+    add_subdirectory(python)
+  endif()
+
+
+################################################################################
 # Tests
 ################################################################################
   
@@ -142,23 +160,6 @@
 
   option(TEST_EXAMPLES "Testing examples" OFF)
   add_subdirectory(examples) # examples are tested as integration tests
-
-
-################################################################################
-# Compile sources
-################################################################################
-
-  add_subdirectory(src) # C++ sources
-  add_subdirectory(doc) # documentation (Doxygen + Sphinx manual)
-
-  # Python binding:
-  option(WITH_PYTHON "Build Python binding" OFF)
-  if(WITH_PYTHON)
-    if(NOT MSVC)
-      add_compile_options(-fPIC) # is it necessary for python binding?
-    endif()
-    add_subdirectory(python)
-  endif()
 
 
 ################################################################################

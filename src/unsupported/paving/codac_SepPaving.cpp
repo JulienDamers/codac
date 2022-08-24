@@ -26,7 +26,7 @@ using ibex::BoolInterval;
 //IntervalVector(*F_sivia) (const IntervalVector&);  // Global variable used in SIVIA;
 //SepPaving X_sivia;
 
-namespace pyibex {
+namespace codac {
 
 SepPaving::SepPaving(int dim) : Sep(dim), root(IntervalVector(dim)), bisector(LargestFirst(0, 0.5)) { } ;
 
@@ -197,7 +197,7 @@ SepPaving& SepPaving::Sivia(Sep &sep, double eps)
           L.push_back(n->right());
         }
     }
-    std::cerr << "k = " << k  << "|| j = " << j << std::endl;
+    //std::cerr << "k = " << k  << "|| j = " << j << std::endl;
     return (*this);
 }
 

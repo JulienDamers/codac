@@ -12,11 +12,16 @@
 #ifndef __CODAC_VIBESFIGPAVING_H__
 #define __CODAC_VIBESFIGPAVING_H__
 
+#include <map>
+#include <string>
 #include "codac_VIBesFig.h"
 #include "codac_Paving.h"
 
 namespace codac
 {
+  typedef std::map<SetValue,std::string> SetColorMap;
+  extern SetColorMap DEFAULT_SET_COLOR_MAP; //!< predefined DEFAULT_SET_COLOR_MAP
+
   /**
    * \class VIBesFigPaving
    * \brief Two-dimensional graphical item to display a Paving object
@@ -41,7 +46,7 @@ namespace codac
        *
        * \param color_map the color map `<paving_value,color_code>` to be set
        */
-      void set_color_map(const std::map<SetValue,std::string>& color_map);
+      void set_color_map(const SetColorMap& color_map);
 
       /**
        * \brief Updates the display of the Paving object

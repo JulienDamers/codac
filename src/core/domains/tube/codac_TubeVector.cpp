@@ -101,7 +101,7 @@ namespace codac
         (*this)[j] = Tube(v_tdomains, v_scalar_codomains[j]);
 
       #ifdef _MSC_VER
-  	  delete[] v_scalar_codomains;
+      delete[] v_scalar_codomains;
       #endif // _MSC_VER
     }
 
@@ -627,6 +627,44 @@ namespace codac
       }
 
       return diag_traj;
+    }
+
+    double TubeVector::max_gate_diam(double& t) const
+    {
+      double max_gate_diam = 0.;
+
+      for(int i = 0 ; i < size() ; i++)
+      {
+        double t_i;
+        double max_gate_diam_i = (*this)[i].max_gate_diam(t_i);
+        if(max_gate_diam_i > max_gate_diam)
+        {
+          t = t_i;
+          max_gate_diam = max_gate_diam_i;
+        }
+      }
+
+      return max_gate_diam;
+    }
+
+    const Slice* TubeVector::steepest_slice() const
+    {
+      const Slice* s = nullptr;
+      double max_diff = 0.;
+
+      for(int i = 0 ; i < size() ; i++)
+      {
+        const Slice* s_i = (*this)[i].steepest_slice();
+        double diff = fabs(s_i->output_gate().mid() - s_i->input_gate().mid());
+
+        if(diff >= max_diff)
+        {
+          s = s_i;
+          max_diff = diff;
+        }
+      }
+
+      return s;
     }
 
     // Tests

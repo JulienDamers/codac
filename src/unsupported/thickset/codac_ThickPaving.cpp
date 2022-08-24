@@ -26,21 +26,21 @@ using std::endl;
 //IntervalVector(*F_sivia) (const IntervalVector&);  // Global variable used in SIVIA;
 //ThickPaving X_sivia;
 
-namespace ibex {
+namespace codac {
 
-ThickPaving::ThickPaving(int dim) : root(IntervalVector(dim), UNK), bisector(LargestFirst(0, 0.5)) { } ;
+ThickPaving::ThickPaving(int dim) : root(IntervalVector(dim), UNK), bisector(ibex::LargestFirst(0, 0.5)) { } ;
 
 ThickPaving::ThickPaving(const IntervalVector& p,ThickBoolean b):
- 	root(p, b), bisector(LargestFirst(0, 0.5)) { }
+ 	root(p, b), bisector(ibex::LargestFirst(0, 0.5)) { }
 
-ThickPaving::ThickPaving(const IntervalVector& p,ThickBoolean b, const LargestFirst& bisector):
+ThickPaving::ThickPaving(const IntervalVector& p,ThickBoolean b, const ibex::LargestFirst& bisector):
  	root(p, b), bisector(bisector) { }
 
 ThickPaving::ThickPaving(const ThickPaving& p):
   root(p.root), bisector(p.bisector) {}
 
 ThickPaving::ThickPaving(IntervalVector& p,ThickTest& pdc,double eps, BINARY_OP op, bool display):
-  root(p, MAYBE), bisector(LargestFirst(0, 0.5)){
+  root(p, MAYBE), bisector(ibex::LargestFirst(0, 0.5)){
     if (display){
       this->Sivia_visu(pdc, eps, op);
     }else {
@@ -49,7 +49,7 @@ ThickPaving::ThickPaving(IntervalVector& p,ThickTest& pdc,double eps, BINARY_OP 
 }
 
 ThickPaving::ThickPaving(IntervalVector& p,FuncTest& test,double eps, BINARY_OP op, bool display):
-  root(p, MAYBE), bisector(LargestFirst(0, 0.5)){
+  root(p, MAYBE), bisector(ibex::LargestFirst(0, 0.5)){
     if (display){
       this->Sivia_visu(test, eps, op);
     }else {
@@ -58,7 +58,7 @@ ThickPaving::ThickPaving(IntervalVector& p,FuncTest& test,double eps, BINARY_OP 
 }
 
 
-ThickPaving::ThickPaving(const std::string& filename) : bisector(LargestFirst(0, 0.5)), root(IntervalVector(1), UNK){
+ThickPaving::ThickPaving(const std::string& filename) : bisector(ibex::LargestFirst(0, 0.5)), root(IntervalVector(1), UNK){
   std::ifstream myfile;
   myfile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
   try{
@@ -627,7 +627,7 @@ ThickPaving& ThickPaving::Sivia_visu(FuncTest &test, double eps, BINARY_OP op )
 
         n->setValue(vali);
     }
-    std::cerr << "k = " << k  << "|| j = " << j << std::endl;
+    //std::cerr << "k = " << k  << "|| j = " << j << std::endl;
     // Clean();
    // Reunite();
     vibes::endDrawing();
@@ -1197,7 +1197,7 @@ ThickPaving& ThickPaving::Sivia(FuncTest &test, double eps, BINARY_OP op )
         }
         n->setValue(vali);
     }
-    std::cerr << "k = " << k  << "|| j = " << j << std::endl;
+    //std::cerr << "k = " << k  << "|| j = " << j << std::endl;
     return (*this);
 }
 // ThickPaving& ThickPaving::Sivia(FuncTest &test, double eps, BINARY_OP op )
@@ -1352,7 +1352,7 @@ ThickPaving& ThickPaving::FastSivia(FuncTest &test, double eps, BINARY_OP op )
         n->setValue(vali);
 
     }
-    std::cerr << "k = " << k  << "|| j = " << j << std::endl;
+    //std::cerr << "k = " << k  << "|| j = " << j << std::endl;
 
     return (*this);
 }
@@ -1403,7 +1403,7 @@ ThickBoolean ThickPaving::erode(FuncTest &test, double eps, BINARY_OP op){
     n->setValue(vali);
 
   } // end while
-  std::cerr << "k = " << k  << "|| j = " << j << std::endl;
+  //std::cerr << "k = " << k  << "|| j = " << j << std::endl;
   if (!find_in && check_empty() == OUT){
     return IN;
   }
@@ -1444,7 +1444,7 @@ ThickBoolean ThickPaving::erode(FuncTest &test, double eps, BINARY_OP op){
     n->setValue(vali);
 
   } // end while
-  std::cerr << "k = " << k  << "|| j = " << j << std::endl;
+  //std::cerr << "k = " << k  << "|| j = " << j << std::endl;
   return UNK;
 
 }

@@ -2,7 +2,6 @@
 # Static range-bearing localization
 # ----------------------------------------------------------------------------
 
-from pyibex import *
 from codac import *
 import math
 import sys # only for checking if this example still works
@@ -81,4 +80,4 @@ endDrawing()
 
 
 # Checking if this example still works:
-sys.exit(0 if x.contains(x_truth[0:1]) else 1)
+sys.exit(0 if x.contains(x_truth[0:2]) else 1)

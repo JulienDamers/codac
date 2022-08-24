@@ -17,7 +17,7 @@ Codac: constraint-programming for robotics
 
 .. toctree::
   :caption: User manual
-  :maxdepth: 1
+  :maxdepth: 2
   :titlesonly:
 
   /manual/01-introduction/index
@@ -27,14 +27,28 @@ Codac: constraint-programming for robotics
   Static contractors </manual/04-static-contractors/index>
   Temporal contractors </manual/05-dynamic-contractors/index>
   /manual/06-contractor-network/index
+  /manual/11-separators/index
   /manual/07-graphics/index
   /faq
+  See also: codac-unsupported </dev/codac-unsupported>
 ..  /manual/08-going-further/index
 ..  /manual/09-extensions/index
 
+
+.. toctree::
+  :caption: Use cases
+  :maxdepth: 2
+  :titlesonly:
+
+  Lie symmetries for guaranteed integ. </use-cases/lie-symmetries/index>
+
+..  /use-cases/set-inversion/index
+..  /use-cases/loops/index
+
+
 .. toctree::
   :caption: Tutorial for mobile robotics
-  :maxdepth: 1
+  :maxdepth: 2
   :titlesonly:
 
   Main page </tutorial/index>

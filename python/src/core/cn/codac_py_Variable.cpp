@@ -14,14 +14,13 @@
 #include <pybind11/stl.h>
 #include <pybind11/operators.h>
 #include <pybind11/functional.h>
-#include "pyIbex_type_caster.h"
+#include "codac_type_caster.h"
 
 #include "codac_Variable.h"
 // Generated file from Doxygen XML (doxygen2docstring.py):
 #include "codac_py_Variable_docs.h"
 
 using namespace std;
-using namespace ibex;
 using namespace codac;
 namespace py = pybind11;
 using namespace pybind11::literals;
@@ -34,6 +33,11 @@ void export_IntervalVar(py::module& m)
 
     .def(py::init<>(),
       "todo") // todo: doc
+
+    //.attr("__hash__") = py::none()
+    .def("__eq__", [](const IntervalVar& s1, const IntervalVar& s2) { return reinterpret_cast<std::uintptr_t>(&s1) == reinterpret_cast<std::uintptr_t>(&s2); })
+  
+    .def("__hash__", [](const IntervalVar& s1) { return reinterpret_cast<std::uintptr_t>(&s1); })
   ;
 }
 
@@ -58,5 +62,9 @@ void export_IntervalVectorVar(py::module& m)
       },
       "todo",
       py::return_value_policy::reference_internal)
-  ;
+
+    .def("__eq__", [](const IntervalVectorVar& s1, const IntervalVectorVar& s2) { return reinterpret_cast<std::uintptr_t>(&s1) == reinterpret_cast<std::uintptr_t>(&s2); })
+
+    .def("__hash__", [](const IntervalVectorVar& s1) { return reinterpret_cast<std::uintptr_t>(&s1); })
+    ;
 }

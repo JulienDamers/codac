@@ -9,35 +9,42 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/mathjax_stmaryrd.js
 
 # Technical API documentation (Doxygen)
 
-  find_package(Doxygen)
+  if(WITH_PYTHON)
 
-  if(NOT DOXYGEN_FOUND)
+    find_package(Doxygen)
 
-    message(STATUS "Doxygen not found, not able to generate/install the API documentation.")
+    if(NOT DOXYGEN_FOUND)
 
-  else()
+      message(STATUS "Doxygen not found, not able to generate/install the API documentation.")
 
-    # Includes CMake commands in config file:
-    configure_file(api/Doxyfile.in api/Doxyfile)
-
-    set(DOXYGEN_INPUT ${CMAKE_CURRENT_BINARY_DIR}/api/Doxyfile)
-    set(DOXYGEN_OUTPUT ${APIDOC_DIR}/html/index.html)
-
-    if(WIN32)
-      set(NULL_DEST NUL 2>&1)
     else()
-      set(NULL_DEST "/dev/null")
+
+      # Includes CMake commands in config file:
+      configure_file(api/Doxyfile.in api/Doxyfile)
+
+      set(DOXYGEN_INPUT ${CMAKE_CURRENT_BINARY_DIR}/api/Doxyfile)
+      set(DOXYGEN_OUTPUT ${APIDOC_DIR}/html/index.html)
+
+      if(WIN32)
+        set(NULL_DEST NUL 2>&1)
+      else()
+        set(NULL_DEST "/dev/null")
+      endif()
+
+      #add_custom_target(api
+      #                  COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation... "
+      #                  COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_INPUT} > ${NULL_DEST}
+      #                  COMMAND ${CMAKE_COMMAND} -E echo "done."
+      #                  )
+
+      message(STATUS "Building API Documentation (mandatory for Python binding)")
+      execute_process(COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_INPUT} OUTPUT_QUIET)
+
+      install(DIRECTORY ${CMAKE_BINARY_DIR}/doc/api/html 
+              DESTINATION share/doc/${CMAKE_PROJECT_NAME}/api
+              OPTIONAL)
+
     endif()
-
-    add_custom_target(api
-                      COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation... "
-                      COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_INPUT} > ${NULL_DEST}
-                      COMMAND ${CMAKE_COMMAND} -E echo "done."
-                      )
-
-    install(DIRECTORY ${CMAKE_BINARY_DIR}/doc/api/html 
-            DESTINATION share/doc/${CMAKE_PROJECT_NAME}/api
-            OPTIONAL)
 
   endif()
 
@@ -50,7 +57,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/mathjax_stmaryrd.js
 
   if(NOT SPHINX_FOUND)
 
-    message(STATUS "Sphinx not found, not able to generate/install the manual.")
+    message(STATUS "Sphinx not found, will not be able to generate/install the manual.")
 
   else()
 
@@ -63,6 +70,11 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/mathjax_stmaryrd.js
     # Copying _static files of Sphinx to build directories
     foreach(static_file ${CMAKE_CURRENT_SOURCE_DIR}/doc/_static/)
       file(COPY ${static_file} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/doc/_static/)
+    endforeach()
+
+    # Copying tmp files
+    foreach(static_file ${CMAKE_CURRENT_SOURCE_DIR}/doc/tmp/)
+      file(COPY ${static_file} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/doc/tmp/)
     endforeach()
 
     # todo: the SPHINX_EXECUTABLE is already set by FindSphinx.cmake:

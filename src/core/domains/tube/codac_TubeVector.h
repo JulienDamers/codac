@@ -504,6 +504,21 @@ namespace codac
       const Vector max_diam() const;
 
       /**
+       * \brief Returns the maximum diameter of all gates of the tube vector in all components
+       *
+       * \param t instant \f$t\f$ corresponding to this maximal diameter
+       * \return the maximal diameter of a component of a gate
+       */
+      double max_gate_diam(double& t) const;
+
+      /** \brief Returns the slice of the Tube of this TubeVector with the largest difference 
+       *         between the mid values of the input and output gates, in all components.
+       *
+       * \return a pointer to the steepest slice
+       */
+      const Slice* steepest_slice() const;
+      
+      /**
        * \brief Returns the slices diagonals of the tube as a trajectory
        *
        * \note Without derivative knowledge, and because the tube is made of boxed slices,

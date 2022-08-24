@@ -111,7 +111,7 @@ namespace codac
   {
     assert(tube);
     if(m_map_tubes.find(tube) == m_map_tubes.end())
-      throw Exception(__func__, "unknown tube, must be added beforehand");
+      throw Exception(__func__, "unknown tube, must be added to the figure, beforehand");
 
     m_map_tubes[tube].name = name;
   }
@@ -121,7 +121,7 @@ namespace codac
     assert(tube);
     assert(color != "");
     if(m_map_tubes.find(tube) == m_map_tubes.end())
-      throw Exception(__func__, "unknown tube, must be added beforehand");
+      throw Exception(__func__, "unknown tube, must be added to the figure, beforehand");
 
     m_map_tubes[tube].color = color;
   }
@@ -130,7 +130,7 @@ namespace codac
   {
     assert(tube);
     if(m_map_tubes.find(tube) == m_map_tubes.end())
-      throw Exception(__func__, "unknown tube, must be added beforehand");
+      throw Exception(__func__, "unknown tube, must be added to the figure, beforehand");
 
     m_map_tubes[tube].color = ""; // removing constant color
     m_map_tubes[tube].color_map = make_pair(colormap, traj_colormap);
@@ -190,7 +190,7 @@ namespace codac
   {
     assert(traj);
     if(m_map_trajs.find(traj) == m_map_trajs.end())
-      throw Exception(__func__, "unknown trajectory, must be added beforehand");
+      throw Exception(__func__, "unknown trajectory, must be added to the figure, beforehand");
 
     m_map_trajs[traj].name = name;
   }
@@ -342,7 +342,7 @@ namespace codac
   {
     assert(traj);
     if(m_map_trajs.find(traj) == m_map_trajs.end())
-      throw Exception(__func__, "unknown trajectory, must be added beforehand");
+      throw Exception(__func__, "unknown trajectory, must be added to the figure, beforehand");
 
     // Simply directly drawn
     draw_observation(obs, traj, color, vibesParams("figure", name(), "group", "obs"));
@@ -352,7 +352,7 @@ namespace codac
   {
     assert(traj);
     if(m_map_trajs.find(traj) == m_map_trajs.end())
-      throw Exception(__func__, "unknown trajectory, must be added beforehand");
+      throw Exception(__func__, "unknown trajectory, must be added to the figure, beforehand");
 
     // Simply directly drawn
     for(size_t i = 0 ; i < v_obs.size() ; i++)
@@ -363,7 +363,7 @@ namespace codac
   {
     assert(tube);
     if(m_map_tubes.find(tube) == m_map_tubes.end())
-      throw Exception(__func__, "unknown tube, must be added beforehand");
+      throw Exception(__func__, "unknown tube, must be added to the figure, beforehand");
 
     IntervalVector viewbox(2, Interval::EMPTY_SET);
 
@@ -419,7 +419,7 @@ namespace codac
   {
     assert(traj);
     if(m_map_trajs.find(traj) == m_map_trajs.end())
-      throw Exception(__func__, "unknown trajectory, must be added beforehand");
+      throw Exception(__func__, "unknown trajectory, must be added to the figure, beforehand");
     assert(points_size >= 0.);
 
     ostringstream o;
@@ -564,7 +564,7 @@ namespace codac
   {
     assert(tube);
     if(m_map_tubes.find(tube) == m_map_tubes.end())
-      throw Exception(__func__, "unknown tube, must be added beforehand");
+      throw Exception(__func__, "unknown tube, must be added to the figure, beforehand");
 
     // Reduced number of slices:
     int step = std::max((int)((1. * tube->nb_slices()) / m_tube_max_nb_disp_slices), 1);
@@ -604,8 +604,8 @@ namespace codac
             if(!prev_box.is_unbounded())
             {
               vector<Vector> v_pts;
-              Point::push(box, v_pts);
-              Point::push(prev_box, v_pts);
+              ThickPoint::push(box, v_pts);
+              ThickPoint::push(prev_box, v_pts);
               ConvexPolygon p(v_pts, false);
               draw_polygon(p, color, params);
             }
@@ -689,8 +689,8 @@ namespace codac
           if(!prev_box.is_unbounded())
           {
             vector<Vector> v_pts;
-            Point::push(box, v_pts);
-            Point::push(prev_box, v_pts);
+            ThickPoint::push(box, v_pts);
+            ThickPoint::push(prev_box, v_pts);
             ConvexPolygon p(v_pts, false);
             draw_polygon(p, color, params);
           }
@@ -744,7 +744,7 @@ namespace codac
   {
     assert(traj);
     if(m_map_trajs.find(traj) == m_map_trajs.end())
-      throw Exception(__func__, "unknown trajectory, must be added beforehand");
+      throw Exception(__func__, "unknown trajectory, must be added to the figure, beforehand");
     assert(traj->tdomain().contains(t));
 
     Vector pose(3);
@@ -797,7 +797,7 @@ namespace codac
     assert(obs.size() >= 3);
     assert(traj);
     if(m_map_trajs.find(traj) == m_map_trajs.end())
-      throw Exception(__func__, "unknown trajectory, must be added beforehand");
+      throw Exception(__func__, "unknown trajectory, must be added to the figure, beforehand");
 
     if(obs.is_empty())
       return;
